@@ -1,0 +1,5 @@
+-- setup all things needed before starting the project
+1) created an enviroment where all packages would be installed using conda
+2)diff folders and files required
+
+--exception and logging code
