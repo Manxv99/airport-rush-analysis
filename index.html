@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #27087D;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, #27087D, #D43F40);
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            max-width: 90%;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: #27087D;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #debfd4;
+            color: #27087D;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #eeeeee;
+        }
+
+        #prediction-result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="flyfair_logo.png" alt="FLYFAIR Logo" style="width: 150px; margin-bottom: 20px;">
+        <h1>Rush Prediction</h1>
+        <form id="prediction-form">
+            <input type="text" id="gate_number" name="gate_number" placeholder="Gate Number">
+            <input type="date" id="date_of_travel" name="date_of_travel">
+            <input type="time" id="time_of_travel" name="time_of_travel">
+            <button type="submit">Predict</button>
+        </form>
+        <div id="prediction-result"></div>
+    </div>
+
+    <script>
+        document.getElementById("prediction-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get form values
+            var gateNumber = document.getElementById("gate_number").value;
+            var dateOfTravel = document.getElementById("date_of_travel").value;
+            var timeOfTravel = document.getElementById("time_of_travel").value;
+            
+            // Send AJAX request to Flask app
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/predict");
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    document.getElementById("prediction-result").innerHTML = "Predicted number of passengers: " + data.prediction;
+                } else {
+                    console.error("Error:", xhr.statusText);
+                }
+            };
+            xhr.onerror = function() {
+                console.error("Error:", xhr.statusText);
+            };
+            xhr.send(JSON.stringify({
+                "gate_number": gateNumber,
+                "date_of_travel": dateOfTravel,
+                "time_of_travel": timeOfTravel
+            }));
+        });
+    </script>
+</body>
+</html>

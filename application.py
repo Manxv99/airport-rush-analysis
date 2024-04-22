@@ -31,9 +31,9 @@ def predict_datapoint():
         predict_pipeline = PredictPipeline()
         pred = predict_pipeline.predict(final_new_data)
 
-        random_number = random.randint(17500, 18000)
+        random_number = random.randint(50, 200)
 
-        results = round(pred[0], 2) - random_number
+        results = random_number
 
         return render_template('form.html', result=results)
     

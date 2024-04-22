@@ -1,81 +1,97 @@
+<!DOCTYPE html>
 <html>
 
+<head>
+  <title>Prediction Form</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #e5d5ee;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #27087D, #D43F40);
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      max-width: 90%;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      color: #ffffff;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    button {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: #f0f0f1;
+      
+    }
+
+    button {
+      cursor: pointer;
+      background-color: #debfd4;
+      color: #27087D;
+      transition: background 0.3s;
+
+    }
+
+    button:hover {
+      background-color: #eeeeee;
+    }
+
+    #prediction-result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
 <body>
-  <form action="{{url_for('predict_datapoint')}}" method="POST">
-    <div class="form-group">
-      <label for="carat">Date:</label>
-      <input type="text" id="carat" name="carat" placeholder="Enter date (dd.mm format)">
-    </div>
-    <br><br>
-    <div class="form-group">
-      <label for="depth">Time:</label>
-      <input type="text" id="depth" name="depth" placeholder="Enter Time(hh.mm format)">
-    </div>
-<br><br>
-    <div class="form-group">
-      <label for="table">Terminal:</label>
-      <input type="text" id="table" name="table" placeholder="Enter your Terminal">
-    </div>
-<br><br>
-    <!-- <div class="form-group">
-      <label for="x">x:</label>
-      <input type="text" id="x" name="x" placeholder="Enter x value (float)">
-    </div>
+  <div class="container">
+    <h1>Prediction Form</h1>
+    <form action="{{url_for('predict_datapoint')}}" method="POST">
+      <div class="form-group">
+        <label for="carat">Date:</label>
+        <input type="text" id="carat" name="carat" placeholder="Enter date (dd.mm format)">
+      </div>
+      <br><br>
+      <div class="form-group">
+        <label for="depth">Time:</label>
+        <input type="text" id="depth" name="depth" placeholder="Enter Time(hh.mm format)">
+      </div>
+      <br><br>
+      <div class="form-group">
+        <label for="table">Terminal:</label>
+        <input type="text" id="table" name="table" placeholder="Enter your Terminal">
+      </div>
+      <br><br>
+      <input type="submit" value="Submit">
+    </form>
 
-    <div class="form-group">
-      <label for="y">y:</label>
-      <input type="text" id="y" name="y" placeholder="Enter y value (float)">
-    </div>
-
-    <div class="form-group">
-      <label for="z">z:</label>
-      <input type="text" id="z" name="z" placeholder="Enter z value (float)">
-    </div>
-
-    <div class="form-group">
-      <label for="cut">Cut:</label>
-      <select id="cut" name="cut">
-        <option value="Fair">Fair</option>
-        <option value="Good">Good</option>
-        <option value="Very Good">Very Good</option>
-        <option value="Premium">Premium</option>
-        <option value="Ideal">Ideal</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="color">Color:</label>
-      <select id="color" name="color">
-        <option value="D">D</option>
-        <option value="E">E</option>
-        <option value="F">F</option>
-        <option value="G">G</option>
-        <option value="H">H</option>
-        <option value="I">I</option>
-        <option value="J">J</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="clarity">Clarity:</label>
-      <select id="clarity" name="clarity">
-        <option value="I1">I1</option>
-        <option value="SI2">SI2</option>
-        <option value="SI1">SI1</option>
-        <option value="VS2">VS2</option>
-        <option value="VS1">VS1</option>
-        <option value="VVS2">VVS2</option>
-        <option value="VVS1">VVS1</option>
-        <option value="IF">IF</option>
-      </select>
-    </div> -->
-
-    <div style="clear:both;"></div>
-    <input type="submit" value="Submit">
-  </form>
-
-  <p><b>The rush predicted is: </b></p>
-  <h3>{{result}}</h3>
+    <p><b>The rush predicted is: </b></p>
+    <h3 id="prediction-result">{{result}}</h3>
+  </div>
 </body>
 
 </html>
